@@ -1,4 +1,4 @@
-package postgresql
+package repository
 
 import (
 	"database/sql"
@@ -6,7 +6,7 @@ import (
 )
 
 type PostgresDatabase struct {
-	db *sql.DB
+	DB *sql.DB
 }
 
 func NewPostgresDatabase() (*PostgresDatabase, error) {
@@ -25,5 +25,5 @@ func NewPostgresDatabase() (*PostgresDatabase, error) {
 
 func (d *PostgresDatabase) QueryRow(query string, args ...interface{}) (*sql.Rows, error) {
 	//return d.db.QueryRow(query, args...)
-	return d.db.Query(query, args...)
+	return d.DB.Query(query, args...)
 }
