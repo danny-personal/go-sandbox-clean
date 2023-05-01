@@ -22,14 +22,12 @@ type Payment struct {
 }
 
 func (p *PaymentService) GetPaymentId(limit int) (*[]Payment, error) {
-	fmt.Println("GetPaymentId start")
 	args := []interface{}{limit}
 	rows, err := p.db.QueryRow("select payment_id from payment limit $1", args...)
 	if err != nil {
 		return nil, err
 	}
 	var payments []Payment
-	fmt.Println("rows next")
 	for rows.Next() {
 		var paymentID int
 		// 行の値を変数に割り当てる、変数からポインタを抽出する

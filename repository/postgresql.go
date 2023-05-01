@@ -2,7 +2,6 @@ package repository
 
 import (
 	"database/sql"
-	"fmt"
 )
 
 type PostgresDatabase struct {
@@ -10,7 +9,6 @@ type PostgresDatabase struct {
 }
 
 func NewPostgresDatabase() (*PostgresDatabase, error) {
-	fmt.Println("connection start")
 	con := "postgres://postgres:password@192.168.0.239/pagila"
 	db, err := sql.Open("postgres", con)
 	if err != nil {
@@ -24,6 +22,5 @@ func NewPostgresDatabase() (*PostgresDatabase, error) {
 }
 
 func (d *PostgresDatabase) QueryRow(query string, args ...interface{}) (*sql.Rows, error) {
-	//return d.db.QueryRow(query, args...)
 	return d.DB.Query(query, args...)
 }
