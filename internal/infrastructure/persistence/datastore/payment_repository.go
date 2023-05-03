@@ -16,8 +16,16 @@ type paymentRepository struct {
 	db Database
 }
 
+type MyDB struct {
+	*sql.DB
+}
+
+func (db MyDB) QueryRow(query string, args ...interface{}) (*sql.Rows, error) {
+	return db.DB.Query(query, args...)
+}
+
 func NewPaymentRepository(db *sql.DB) repositories.PaymentRepository {
-	return paymentRepository{db: db}
+	return &paymentRepository{db: MyDB{db}}
 }
 
 func (r *paymentRepository) GetPaymentID(limit int) (*[]entities.Payment, error) {
@@ -33,7 +41,8 @@ func (r *paymentRepository) GetPaymentID(limit int) (*[]entities.Payment, error)
 		rows.Scan(&paymentID)
 		fmt.Printf("payment_id=%v\n", paymentID)
 
-		payments = append(payments)
+		//payments = append(payments)
+		payments = append(payments, entities.Payment{PaymentID: paymentID})
 	}
 	return &payments, nil
 }
