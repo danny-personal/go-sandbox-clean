@@ -8,6 +8,7 @@ import (
 	"github.com/danny-personal/go-sandbox-clean/internal/infrastructure/persistence/datastore"
 	"github.com/danny-personal/go-sandbox-clean/internal/infrastructure/web"
 	"github.com/danny-personal/go-sandbox-clean/internal/interfaces/controllers"
+	_ "github.com/lib/pq"
 )
 
 func main() {
