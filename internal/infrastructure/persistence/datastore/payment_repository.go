@@ -16,16 +16,16 @@ type paymentRepository struct {
 	db Database
 }
 
-type MyDB struct {
+type Wrapper struct {
 	*sql.DB
 }
 
-func (db MyDB) QueryRow(query string, args ...interface{}) (*sql.Rows, error) {
+func (db Wrapper) QueryRow(query string, args ...interface{}) (*sql.Rows, error) {
 	return db.DB.Query(query, args...)
 }
 
 func NewPaymentRepository(db *sql.DB) repositories.PaymentRepository {
-	return &paymentRepository{db: MyDB{db}}
+	return &paymentRepository{db: Wrapper{db}}
 }
 
 func (r *paymentRepository) GetPaymentID(limit int) (*[]entities.Payment, error) {
