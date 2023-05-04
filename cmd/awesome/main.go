@@ -12,19 +12,13 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("postgres", "postgres://postgres:password@192.168.0.239/pagila")
+	db, err := sql.Open("postgres", "postgres://postgres:password@192.168.0.56/pagila")
 	if err != nil {
 		log.Fatal()
 	}
 	defer db.Close()
+
 	paymentRepository := datastore.NewPaymentRepository(db)
-	/*
-		payment, err := paymentRepository.GetPaymentID(5)
-		if err != nil {
-			log.Fatal()
-		}
-		fmt.Println(payment)
-	*/
 	paymentController := controllers.NewPaymentController(paymentRepository)
 	router := web.NewRouter(paymentController)
 	log.Println("Starting server on :8080...")
