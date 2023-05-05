@@ -1,10 +1,9 @@
 # go-sandbox-clean
-```bash
-sudo chmod -R 777 /go/
-go get github.com/lib/pq
-```
 
 ```mermaid
+---
+title: Payment
+---
 classDiagram
     class Payment {
         +paymentID : int

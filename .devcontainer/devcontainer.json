@@ -26,7 +26,8 @@
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"golang.Go"
+				"golang.Go",
+				"bierner.markdown-mermaid"
 			]
 		}
 	},
@@ -38,5 +39,7 @@
 	// "postCreateCommand": "go version",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+	//"remoteUser": "vscode"
+	"remoteUser": "root",
+	"postCreateCommand": "go get github.com/lib/pq"
 }
