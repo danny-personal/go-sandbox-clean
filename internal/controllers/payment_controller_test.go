@@ -16,9 +16,10 @@ func TestPaymentController_GetPayment(t *testing.T) {
 	paymentController := controllers.NewPaymentController(paymentRepo)
 
 	paymentRepo.SetMockGetPaymentID(func(limit int) (*[]entities.Payment, error) {
-		if limit == 1 {
+		if limit == 2 {
 			payments := []entities.Payment{
-				entities.Payment{PaymentID: 1},
+				{PaymentID: 1},
+				{PaymentID: 2},
 			}
 			return &payments, nil
 		}
@@ -27,7 +28,7 @@ func TestPaymentController_GetPayment(t *testing.T) {
 
 	t.Run("valid limit", func(t *testing.T) {
 		w := httptest.NewRecorder()
-		r, _ := http.NewRequest("GET", "api/payment?limit=1", nil)
+		r, _ := http.NewRequest("GET", "api/payment?limit=2", nil)
 
 		paymentController.GetPaymentID(w, r)
 
