@@ -2,22 +2,45 @@
 
 ```mermaid
 ---
-title: Payment
+title: Payment Class Diagram
 ---
 classDiagram
     class Payment {
-        +paymentID : int
+        +PaymentID : int
     }
-    class PaymentRepository{
+
+    class PaymentRepository {
         +GetPaymentID(limit int) (*[]Payment, error)
     }
+
     class paymentRepository {
         -db : *sql.DB
     }
-    class PaymentController {
-        -paymentRepository : PaymentRepository
+
+    class PaymentControllerInterface {
+        +GetPaymentID(limit int) (*[]Payment, error)
     }
+
+    class PaymentController {
+        -paymentRepository : UserRepository
+    }
+
+    class Main {
+        -db : *sql.DB
+        -router : *mux.Router
+        -paymentController : PaymentControllerInterface
+    }
+
+    class Router {
+        -paymentController : PaymentControllerInterface
+    }
+
     Payment -- PaymentRepository : uses
     PaymentRepository <|.. paymentRepository : implements
-    PaymentController -- PaymentRepository : uses
+    paymentRepository --> PaymentRepository : depends
+    PaymentController --> PaymentRepository : depends
+    PaymentController <|.. PaymentControllerInterface : implements
+    PaymentControllerInterface -- PaymentRepository : uses
+    Main --> PaymentControllerInterface : depends
+    Router --> PaymentControllerInterface : depends
 ```
