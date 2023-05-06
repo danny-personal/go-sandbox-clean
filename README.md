@@ -22,7 +22,7 @@ classDiagram
     }
 
     class PaymentController {
-        -paymentRepository : UserRepository
+        -paymentRepository : PaymentRepository
     }
 
     class Main {
